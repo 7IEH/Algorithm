@@ -1,3 +1,3 @@
-# Algorithm
-SWU C++
+# Algorithm  
+SWU C++  
 BAEKJOON PYTHON

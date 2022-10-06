@@ -1,0 +1,22 @@
+BFS
+너비 우선 탐색
+-> 모든 트리 노드를 다 검색해본다고 생각하면된다.
+-> 주로 푸는 방법
+-> queue<pair<int,int>> queue 이런식으로 넣어놓고
+-> int dx[4]
+-> int dy[4]
+
+if(!queue.empty())
+{
+	auto front = queue.front(); queue.pop();
+	for(int dir=0;dir<4;dir++)	
+	{
+		int nx = front.x+dx[dir];
+		int ny = front.y+dy[dir];
+		if(nx<0||nx>=??||ny<0||ny>=??)continue;
+		if(visitied[nx][ny]||map[nx][ny]==0)continue;
+		visitied[nx][ny]=true;
+		?? 하고싶은거 넣기
+	}
+}
+

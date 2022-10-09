@@ -1,0 +1,31 @@
+indegree
+즉, 선행되는 조건이 있는 수를 찾을때 씀
+
+queue<int> q;
+vector<int> adj[100];
+
+int deg[100];
+vector<int>result;
+
+// n까지의 수를 정렬
+int N;
+
+
+for(int i=1;i<=N;i++)
+{	
+	// 우선 순위가 없을 경우 전부 queue에 넣고
+	if(deg[i]==0)q.push(i);
+}
+while(!q.empty())
+{	
+	// 우선 순위 때문에 들을 수 없는 과목이 있을 경우 해당 과목으로 들어오는
+	// indegree 낮추고 넣음
+	int cur = q.front(); q.pop();
+	result.push_back(cur);
+	for(int nxt:adj[cur])
+	{
+		deg[nxt]--;
+		if(deg[nxt]==0)q.push(nxt);
+	}		
+}
+

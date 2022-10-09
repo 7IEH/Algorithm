@@ -1,0 +1,53 @@
+MST(Minimum Spanning Tree)
+최소 신장 트리를 다루기 전에 신장 트리가 무엇인지 알아봅시다. 
+신장 트리는 주어진 방향성이 없는 그래프의 부분 그래프(Subgraph)들 중에서 모든 정점을 포함하는 트리를 의미합니다. 
+신장 트리 조건 -> 연결 그래프, 사이클이 존재하면 안됨
+and 신장 트리 일 경우
+노드의 수 -1 = 간선의 수
+간선의 합이 최소인 경우를 최소 신장 트리라함
+
+크루스칼 알고리즘
+1. 간선을 크기의 오름차순으로 정렬하고 제일 낮은 비용의 간선을 선택
+2. 현재 선택한 간선이 정점 u,v를 연결하는 간선이라고 할 때 만약 u와 v가 같은 그룹이라면
+아무 것도 하지 않고 넘어감, u와 v가 다른 그룹이라면 같은 그룹으로 만들고 현재 선택한 간선을
+ 최소 신장 트리에 추가
+3. 최소 신장 트리에 v-1개의 간선을 추가시켰다면 과정을 종료, 그렇지 않다면 그 다음으로 비용이 작은
+간선을 선택한 후 2번 과정을 반복
+
+union - find 
+Disjoint set을 만들기 위한 알고리즘
+서로 중복되지 않는 부분 집합들 로 나눠진 원소들에 대한 정보를 저장하고 조작하는 자료구조
+
+int find(int x)
+{
+	if(p[x]<0) return x;
+	return p[x] = find(p[x]);
+}
+
+bool is_diff_group(int u,int v)
+{
+	u=find(u); v= find(v);
+	if(u == v) return 0;
+	if(p[u] > p[v]) swap(u,v);
+	p[u] += p[v];
+	p[v] =u;
+	return 1;
+}
+
+크루스칼 알고리즘
+int v, e;
+tuple<int,int,int> edge[10005];
+
+sort(edge,edge+e);
+int cnt=0;
+for(int i=0; i<e;i++)
+{
+	int cost,a ,b;
+	tie(cost,a ,b) = edge[i];
+	if(!union_find(a,b)) continue;
+	cout<< cost << ' '<<a<< ' ' <<b;
+	cnt++;
+	if(cnt == v-1) break;
+}
+
+프림 알고리즘

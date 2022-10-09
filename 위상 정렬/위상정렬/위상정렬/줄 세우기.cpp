@@ -1,8 +1,12 @@
 #include<iostream>
 #include<vector>
+#include<queue>
 using namespace std;
 
-vector<int> v[32001];
+queue<int> q;
+vector<int> result;
+vector<int> adj[32001];
+int	deg[32001];
 int N,M;
 
 void solve();
@@ -12,25 +16,32 @@ void solve()
 {
 	for (int i = 0; i < M; i++)
 	{
-		int a, b = 0;
+		int a, b;
 		cin >> a >> b;
-		v[b].push_back(a);
+		adj[a].push_back(b);
+		deg[b]++;
 	}
+	for (int i = 1; i <= N; i++)
+		if (deg[i] == 0) q.push(i);
+	while (!q.empty())
+	{
+		int cur = q.front(); q.pop();
+		result.push_back(cur);
+		for (int nxt : adj[cur])
+		{
+			deg[nxt]--;
+			if (deg[nxt] == 0) q.push(nxt);	
+		}
+	}
+
 	solution();
 }
 
 void solution()
 {
-	for (int i = N; i > 0; i--)
+	for (int nxt : result)
 	{
-		if (!v[i].empty())
-		{
-			for (int j = 0; j < v[i].size(); j++)
-			{
-				cout << v[i][j] <<' ';
-			}
-			cout << i << ' ';
-		}
+		cout << nxt <<' ';
 	}
 }
 
